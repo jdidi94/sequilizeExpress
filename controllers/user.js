@@ -1,12 +1,11 @@
-const { id } = require("date-fns/locale");
-const { User } = require("../database/main");
+const { User, Post } = require("../database/main");
 module.exports.getAllUsers = async (req, res) => {
   //   res.send("User route is working");
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({ include: Post });
     res.send(users);
   } catch (error) {
-    // throw error;
+    throw error;
     res.status(500).send("Error retrieving users");
   }
 };
